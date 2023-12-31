@@ -119,8 +119,8 @@
 
 <html>
   <head>
-        <title>LEMURS: Learning Distributed Multi-robot Interactions</title>
-        <meta property="og:title" content="LEMURS" />
+        <title>Physics-Informed Multi-Agent Reinforcement Learning for Distributed Multi-Robot Problems</title>
+        <meta property="og:title" content="phMARL" />
         <meta property="og:image" content="" />
         <meta property="og:url" content="" />
       <style>
@@ -137,7 +137,7 @@ code {
   <body>
     <br>
     <center>
-    <span style="font-size:42px">LEMURS: Learning Distributed Multi-robot Interactions</span>
+    <span style="font-size:42px">Physics-Informed Multi-Agent Reinforcement Learning for Distributed Multi-Robot Problems</span>
     
     </center>
 
@@ -185,7 +185,7 @@ code {
        <tr>
         <td align=center width=100px>
         <center>
-        <span style="font-size:20px"><a href="https://www.icra2023.org/">Accepted and presented at IEEE ICRA 2023</a></span>
+        <span style="font-size:20px"><a href="https://www.ieee-ras.org/publications/t-ro">Under review at IEEE Transactions on Robotics</a></span>
         </center>
         </td>
      </tr>
@@ -197,17 +197,12 @@ code {
      <tr>
        <td align=center width=100px>
        <center>
-       <span style="font-size:20px"><a href="https://arxiv.org/abs/2209.09702">[Paper]</a></span>
+       <span style="font-size:20px"><a href="https://arxiv.org/abs/XXXXXXXXXXXXXXXXX">[Paper]</a></span>
        </center>
        </td>
        <td align=center width=100px>
        <center>
-       <span style="font-size:20px"><a href="https://upload.wikimedia.org/wikipedia/commons/0/0e/De-Lemure.ogg">[Pronunciation]</a></span>
-       </center>
-       </td>
-       <td align=center width=100px>
-       <center>
-       <span style="font-size:20px"><a href="https://github.com/EduardoSebastianRodriguez/LEMURS">[Code]</a></span>
+       <span style="font-size:20px"><a href="https://github.com/EduardoSebastianRodriguez/phMARL">[Code]</a></span>
        </center>
        </td>
     
@@ -218,7 +213,12 @@ code {
             
 
             <br>
-            This paper presents LEMURS, an algorithm for learning scalable multi-robot control policies from cooperative task demonstrations. We propose a port-Hamiltonian description of the multi-robot system to exploit universal physical constraints in interconnected systems and achieve closed-loop stability. We represent a multi-robot control policy using an architecture that combines self-attention mechanisms and neural ordinary differential equations. The former handles time-varying communication in the robot team, while the latter respects the continuous-time robot dynamics. Our representation is distributed by construction, enabling the learned control policies to be deployed in robot teams of different sizes. We demonstrate that LEMURS can learn interactions and cooperative behaviors from demonstrations of multi-agent navigation and flocking tasks.
+            We propose a physics-informed reinforcement learning approach able to learn distributed multi-robot control policies that are both scalable and make use 
+            of all the available information to each robot. Our approach has three key characteristics. First, it imposes a port-Hamiltonian structure on the policy representation, 
+            respecting energy conservation properties of physical robot systems and the networked nature of robot team interactions. 
+            Second, it uses self-attention to ensure a sparse policy representation able to handle time-varying information at each robot from the interaction graph. 
+            Third, we present a soft actor-critic reinforcement learning algorithm parameterized by our self-attention port-Hamiltonian control policy, 
+            which accounts for the correlation among robots during training while overcoming the need of value function factorization. 
             <br><br>
 
       <hr>
@@ -227,69 +227,19 @@ code {
              <center><h1>Paper</h1></center>
                 <tr>
                     <!--<td width=300px align=left>-->
-                    <!-- <a href="http://arxiv.org/pdf/1603.08511.pdf"> -->
+                    <!-- <a href="http://arxiv.org/pdf/XXXXXXXXXXXXXXXX.pdf"> -->
                   <!-- <td><a href="#"><img class="layered-paper-big" style="height:175px" src="./resources/images/paper.png"/></a></td> -->
-                  <td><a href="https://arxiv.org/pdf/2209.09702.pdf"><img style="height:300px" src="./resources/thumbnail.png"/></a></td>
+                  <td><a href="https://arxiv.org/pdf/XXXXXXXXXXXXXXXXX.pdf"><img style="height:300px" src="./resources/thumbnail.png"/></a></td>
                   <td><span style="font-size:14pt">Eduardo Sebastian, Thai Duong, Nikolay Atanasov, Eduardo Montijano and Carlos Sagues<br><br>
-                           LEMURS: Learning Distributed Multi-Robot Interactions<br><br>
-                  IEEE ICRA 2023.<br><br>
-                      <a href="https://arxiv.org/pdf/2209.09702.pdf">[pdf]</a> &nbsp; &nbsp;
+                           Physics-Informed Multi-Agent Reinforcement Learning for Distributed Multi-Robot Problems<br><br>
+                  Under review at IEEE Transactions on Robotics, 2024.<br><br>
+                      <a href="https://arxiv.org/pdf/XXXXXXXXXXXXXXXXXXXXXX.pdf">[pdf]</a> &nbsp; &nbsp;
                    <!--    <a href="./resources/bibtex.txt">[Bibtex]</a> -->
                   <!-- [hosted on <a href="#">arXiv</a>]</a> -->
                     </td>
               </tr>
             </table>
 
-      <hr>
-               <!-- <table align=center width=550px> -->
-            <table align=center width=900>
-             <center><h1>Poster</h1></center>
-                <tr>
-                    <!--<td width=300px align=left>-->
-                    <!-- <a href="http://arxiv.org/pdf/1603.08511.pdf"> -->
-                  <!-- <td><a href="#"><img class="layered-paper-big" style="height:175px" src="./resources/images/paper.png"/></a></td> -->
-                  <td><center><a href="./resources/Poster.pdf"><img style="height:300px" src="./resources/Poster.png"/></a></td>
-                  <!--<td><span style="font-size:14pt">Eduardo Sebastian, Thai Duong, Nikolay Atanasov, Eduardo Montijano and Carlos Sagues<br><br>
-                           LEMURS: Learning Distributed Multi-Robot Interactions<br><br>
-                  Poster presented at IEEE ICRA 2023.<br><br>
-                      <a href="./resources/Poster.pdf">[poster]</a> &nbsp; &nbsp;-->
-                   <!--    <a href="./resources/bibtex.txt">[Bibtex]</a> -->
-                  <!-- [hosted on <a href="#">arXiv</a>]</a> -->
-                    </td>
-              </tr>
-            </table>
-      
-
-      
-      
-                <hr>
-                <center><h1>Overview</h1></center>
-                <table align=center width=900px>
-                    <tr>
-                        <td width=600px>
-                          <center>
-                            <div class = "video">
-                                    <iframe width="800" height="480" src="https://www.youtube.com/embed/XtJ4peLyLOg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                           </div>
-                        </center>
-                        </td>
-                    </tr>
-                </table>
-                <br>
-    <hr>
-                <center><h1>Presentation at IEEE ICRA 2023</h1></center>
-                <table align=center width=900px>
-                    <tr>
-                        <td width=600px>
-                          <center>
-                            <div class = "video">
-                                    <iframe width="800" height="480" src="https://www.youtube.com/embed/_ZmhHZnS9n8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                           </div>
-                        </center>
-                        </td>
-                    </tr>
-                </table>
-                <br>
           <hr>
           <table align=center width=550px>
             <table align=center width=800>
@@ -301,7 +251,7 @@ code {
                 <tr>
                     <td width=600px>
                       <center>
-                          <a href="./resources/FigureArchitecture.png"><img src = "./resources/FigureArchitecture.png" width="600px"></img></href></a><br>
+                          <a href="./resources/Architecture.png"><img src = "./resources/Architecture.png" width="600px"></img></href></a><br>
                     </center>
                     </td>
                 </tr>
