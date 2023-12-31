@@ -32,37 +32,37 @@ All the policies are trained with 4 robots.
 
 |                     4 robots                      |                    8 robots                     |                    12 robots                    |                      16 robots                       |
 |:-------------------------------------------------:|:-----------------------------------------------:|:-----------------------------------------------:|:----------------------------------------------------:|
-| <img src="figs/reverse_transport_4_7_LEMURS.gif" height="160"> | <img src="figs/reverse_transport_8_3_LEMURS.gif" height="160"> | <img src="figs/reverse_transport_12_4_LEMURS.gif" height="160"> | <img src="figs/reverse_transport_16_9_LEMURS.gif" height="160"> |  
+| <img src="figs/reverse_transport_4_7_LEMURS.gif" height="190"> | <img src="figs/reverse_transport_8_3_LEMURS.gif" height="190"> | <img src="figs/reverse_transport_12_4_LEMURS.gif" height="190"> | <img src="figs/reverse_transport_16_9_LEMURS.gif" height="190"> |  
 
 ### Sampling
 
 |                     3 robots                      |                    5 robots                     |                    7 robots                     |                       9 robots                       |
 |:-------------------------------------------------:|:-----------------------------------------------:|:-----------------------------------------------:|:----------------------------------------------------:|
-| <img src="figs/sampling_3_0_LEMURS.gif" height="160"> | <img src="figs/sampling_5_3_LEMURS.gif" height="160"> | <img src="figs/sampling_7_0_LEMURS.gif" height="160"> | <img src="figs/sampling_9_0_LEMURS.gif" height="160"> |  
+| <img src="figs/sampling_3_0_LEMURS.gif" height="190"> | <img src="figs/sampling_5_3_LEMURS.gif" height="190"> | <img src="figs/sampling_7_0_LEMURS.gif" height="190"> | <img src="figs/sampling_9_0_LEMURS.gif" height="190"> |  
 
 ### Navigation
 
 |                     4 robots                      |                    5 robots                     |                    6 robots                     |                       8 robots                       |
 |:-------------------------------------------------:|:-----------------------------------------------:|:-----------------------------------------------:|:----------------------------------------------------:|
-| <img src="figs/simple_spread_4_9_LEMURS.gif" height="160"> | <img src="figs/simple_spread_5_0_LEMURS.gif" height="160"> | <img src="figs/simple_spread_6_1_LEMURS.gif" height="160"> | <img src="figs/simple_spread_8_0_LEMURS.gif" height="160"> |  
+| <img src="figs/simple_spread_4_9_LEMURS.gif" height="190"> | <img src="figs/simple_spread_5_0_LEMURS.gif" height="190"> | <img src="figs/simple_spread_6_1_LEMURS.gif" height="190"> | <img src="figs/simple_spread_8_0_LEMURS.gif" height="190"> |  
 
 ### Food collection
 
 |                     3 robots                      |                    6 robots                     |                    12 robots                    |                      24 robots                       |
 |:-------------------------------------------------:|:-----------------------------------------------:|:-----------------------------------------------:|:----------------------------------------------------:|
-| <img src="figs/simple_spread_food_3_2_LEMURS.gif" height="160"> | <img src="figs/simple_spread_food_6_2_LEMURS.gif" height="160"> | <img src="figs/simple_spread_food_12_1_LEMURS.gif" height="160"> | <img src="figs/simple_spread_food_24_6_LEMURS.gif" height="160"> |  
+| <img src="figs/simple_spread_food_3_2_LEMURS.gif" height="190"> | <img src="figs/simple_spread_food_6_2_LEMURS.gif" height="190"> | <img src="figs/simple_spread_food_12_1_LEMURS.gif" height="190"> | <img src="figs/simple_spread_food_24_6_LEMURS.gif" height="190"> |  
 
 ### Grassland
 
 |                     6 robots                      |                    12 robots                    |                    24 robots                    |                      48 robots                       |
 |:-------------------------------------------------:|:-----------------------------------------------:|:-----------------------------------------------:|:----------------------------------------------------:|
-| <img src="figs/grassland_vmas_3_8_LEMURS.gif" height="160"> | <img src="figs/grassland_vmas_6_2_LEMURS.gif" height="160"> | <img src="figs/grassland_vmas_12_1_LEMURS.gif" height="160"> | <img src="figs/grassland_vmas_24_9_LEMURS.gif" height="160"> |  
+| <img src="figs/grassland_vmas_3_8_LEMURS.gif" height="190"> | <img src="figs/grassland_vmas_6_2_LEMURS.gif" height="190"> | <img src="figs/grassland_vmas_12_1_LEMURS.gif" height="190"> | <img src="figs/grassland_vmas_24_9_LEMURS.gif" height="190"> |  
 
 ### Adversarial
 
 |                     6 robots                      |                    12 robots                    |                    24 robots                    |                      48 robots                       |
 |:-------------------------------------------------:|:-----------------------------------------------:|:-----------------------------------------------:|:----------------------------------------------------:|
-| <img src="figs/adversarial_vmas_3_2_LEMURS.gif" height="160"> | <img src="figs/adversarial_vmas_6_1_LEMURS.gif" height="160"> | <img src="figs/adversarial_vmas_12_1_LEMURS.gif" height="160"> | <img src="figs/adversarial_vmas_24_0_LEMURS.gif" height="160"> |  
+| <img src="figs/adversarial_vmas_3_2_LEMURS.gif" height="190"> | <img src="figs/adversarial_vmas_6_1_LEMURS.gif" height="190"> | <img src="figs/adversarial_vmas_12_1_LEMURS.gif" height="190"> | <img src="figs/adversarial_vmas_24_0_LEMURS.gif" height="190"> |  
 
 
 ## Code
