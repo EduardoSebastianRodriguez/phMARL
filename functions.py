@@ -172,7 +172,7 @@ class Attention_Attention(nn.Module):
         return self.mlp_out(x.mean(dim=1)).reshape(-1, self.na, self.output_dim)
 
 
-class Attention_pH_MARL(nn.Module):
+class Attention_LEMURS(nn.Module):
     def __init__(self, input_dim, output_dim, hidden_dim, na, device):
         super().__init__()
 
@@ -495,7 +495,7 @@ class GSA_qvalue(nn.Module):
                                          action.reshape([action.shape[0], -1])), dim=1))
 
 
-class pH_MARL_actor(nn.Module):
+class LEMURS_actor(nn.Module):
 
     def __init__(self, actor_config):
         super().__init__()
@@ -532,7 +532,7 @@ class pH_MARL_actor(nn.Module):
                             self.observation_dim_per_agent,
                             self.device).to(self.device)
 
-        self.std_net = Attention_pH_MARL(self.observation_dim_per_agent + self.action_dim_per_agent,
+        self.std_net = Attention_LEMURS(self.observation_dim_per_agent + self.action_dim_per_agent,
                                  self.action_dim_per_agent,
                                  self.observation_dim_per_agent,
                                  self.na,
@@ -585,8 +585,8 @@ class pH_MARL_actor(nn.Module):
         state_h_mean = torch.clone(state).reshape(-1, self.observation_dim_per_agent)
 
         # Laplacian
-        laplacian = self.laplacian(state[:, :, 0:2])
-        laplacian = torch.kron(laplacian, torch.ones((1, 1, self.observation_dim_per_agent), device=self.device))
+        laplacian_base = self.laplacian(state[:, :, 0:2])
+        laplacian = torch.kron(laplacian_base, torch.ones((1, 1, self.observation_dim_per_agent), device=self.device))
         laplacian = laplacian.reshape(-1, self.na, self.observation_dim_per_agent)
 
         # Reshape and normalize inputs
@@ -597,8 +597,8 @@ class pH_MARL_actor(nn.Module):
         # Copy input for later usage
         std_input = state.clone()
 
-        R_mean = self.R_mean.forward(state.to(torch.float32))
-        J_mean = self.J_mean.forward(state.to(torch.float32))
+        R_mean = self.R_mean.forward(state.to(torch.float32), laplacian_base.to(torch.float32), self.scenario_name)
+        J_mean = self.J_mean.forward(state.to(torch.float32), laplacian_base.to(torch.float32), self.scenario_name)
         with torch.enable_grad():
             state_h_mean = Variable(state_h_mean.data, requires_grad=True)
             H_mean = self.H_mean.forward(state_h_mean.to(torch.float32), self.na)
@@ -627,10 +627,10 @@ class pH_MARL_actor(nn.Module):
         u_log_std = torch.tanh(u_log_std)
         u_log_std = self.log_std_min + 0.5 * (self.log_std_max - self.log_std_min) * (u_log_std + 1)
 
-        return SquashedNormal(u_mean, u_log_std.exp(), 1.0)
+        return SquashedNormal(u_mean, u_log_std.exp())
 
 
-class pH_MARL_qvalue(nn.Module):
+class LEMURS_qvalue(nn.Module):
 
     def __init__(self, qvalue_config):
         super().__init__()
@@ -744,11 +744,13 @@ class PIMARL_actor(nn.Module):
                             16,
                             8,
                             self.observation_dim_per_agent,
+                            self.scenario_name,
                             self.device).to(self.device)
         self.J_mean = Att_J(self.observation_dim_per_agent,
                             16,
                             8,
                             self.observation_dim_per_agent,
+                            self.scenario_name,
                             self.device).to(self.device)
         self.H_mean = Att_H(self.observation_dim_per_agent,
                             25,
@@ -756,7 +758,7 @@ class PIMARL_actor(nn.Module):
                             self.observation_dim_per_agent,
                             self.device).to(self.device)
 
-        self.std_net = Attention_pH_MARL(self.observation_dim_per_agent + self.action_dim_per_agent,
+        self.std_net = Attention_LEMURS(self.observation_dim_per_agent + self.action_dim_per_agent,
                                  self.action_dim_per_agent,
                                  self.observation_dim_per_agent,
                                  self.na,
@@ -841,8 +843,8 @@ class PIMARL_actor(nn.Module):
         # Copy input for later usage
         std_input = state.clone()
 
-        R_mean = self.R_mean.forward(state.to(torch.float32), laplacian_base.to(torch.float32))
-        J_mean = self.J_mean.forward(state.to(torch.float32), laplacian_base.to(torch.float32))
+        R_mean = self.R_mean.forward(state.to(torch.float32), laplacian_base.to(torch.float32), self.scenario_name)
+        J_mean = self.J_mean.forward(state.to(torch.float32), laplacian_base.to(torch.float32), self.scenario_name)
         with torch.enable_grad():
             state_h_mean = Variable(state_h_mean.data, requires_grad=True)
             H_mean = self.H_mean.forward(state_h_mean.to(torch.float32), self.na)
@@ -921,10 +923,11 @@ class Att_R(nn.Module):
       Attention for R
     '''
 
-    def __init__(self, input_dim, output_dim, hidden_dim, na, device):
+    def __init__(self, input_dim, output_dim, hidden_dim, na, scenario_name, device):
         super().__init__()
 
         self.device = device
+        self.scenario_name = scenario_name
         self.activation_soft = nn.Softmax(dim=2)
         self.activation_softA = nn.Softmax(dim=1)
         self.activation_swish = nn.SiLU()
@@ -968,38 +971,65 @@ class Att_R(nn.Module):
             [output_dim]
         ).to(device)
 
-    def forward(self, x, laplacian):
+    def forward(self, x, laplacian, scenario_name):
         self.na = x.shape[1]
 
-        x = (self.mlp_in(x.reshape(-1, self.input_dim)).reshape(x.shape[0], self.na, -1) *
-             torch.kron(laplacian, torch.ones((1, 1, 2 * self.hidden_dim), device=self.device))
-             .reshape(x.shape[0], self.na, -1))
+        if scenario_name == "simple_spread_food" or scenario_name == "grassland_vmas" or scenario_name == "adversarial_vmas":
+            x = (self.mlp_in(x.reshape(-1, self.input_dim)).reshape(x.shape[0], self.na, -1) *
+                 torch.kron(laplacian, torch.ones((1, 1, 2 * self.hidden_dim), device=self.device))
+                 .reshape(x.shape[0], self.na, -1))
 
-        Q = self.activation_swish(
-            torch.bmm(self.Aq_4.unsqueeze(dim=0).repeat(x.shape[0], 1, 1), x.transpose(1, 2)))
-        K = self.activation_swish(
-            torch.bmm(self.Ak_4.unsqueeze(dim=0).repeat(x.shape[0], 1, 1), x.transpose(1, 2))).transpose(1, 2)
-        V = self.activation_swish(
-            torch.bmm(self.Av_4.unsqueeze(dim=0).repeat(x.shape[0], 1, 1), x.transpose(1, 2)))
+            Q = self.activation_swish(
+                torch.bmm(self.Aq_4.unsqueeze(dim=0).repeat(x.shape[0], 1, 1), x.transpose(1, 2)))
+            K = self.activation_swish(
+                torch.bmm(self.Ak_4.unsqueeze(dim=0).repeat(x.shape[0], 1, 1), x.transpose(1, 2))).transpose(1, 2)
+            V = self.activation_swish(
+                torch.bmm(self.Av_4.unsqueeze(dim=0).repeat(x.shape[0], 1, 1), x.transpose(1, 2)))
 
-        x = self.activation_swish(torch.bmm(self.activation_soft(torch.bmm(Q, K)).to(torch.float32), V).transpose(1, 2))
+            x = self.activation_swish(torch.bmm(self.activation_soft(torch.bmm(Q, K)).to(torch.float32), V).transpose(1, 2))
 
-        x = (self.mlp_hidden_4(x.reshape(-1, 2 * self.hidden_dim)).reshape(x.shape[0], self.na, -1) *
-             torch.kron(laplacian, torch.ones((1, 1, self.hidden_dim), device=self.device))
-             .reshape(x.shape[0], self.na, -1))
+            x = (self.mlp_hidden_4(x.reshape(-1, 2 * self.hidden_dim)).reshape(x.shape[0], self.na, -1) *
+                 torch.kron(laplacian, torch.ones((1, 1, self.hidden_dim), device=self.device))
+                 .reshape(x.shape[0], self.na, -1))
 
-        Q = self.activation_swish(
-            torch.bmm(self.Aq_7.unsqueeze(dim=0).repeat(x.shape[0], 1, 1), x.transpose(1, 2)))
-        K = self.activation_swish(
-            torch.bmm(self.Ak_7.unsqueeze(dim=0).repeat(x.shape[0], 1, 1), x.transpose(1, 2))).transpose(1, 2)
-        V = self.activation_swish(
-            torch.bmm(self.Av_7.unsqueeze(dim=0).repeat(x.shape[0], 1, 1), x.transpose(1, 2)))
+            Q = self.activation_swish(
+                torch.bmm(self.Aq_7.unsqueeze(dim=0).repeat(x.shape[0], 1, 1), x.transpose(1, 2)))
+            K = self.activation_swish(
+                torch.bmm(self.Ak_7.unsqueeze(dim=0).repeat(x.shape[0], 1, 1), x.transpose(1, 2))).transpose(1, 2)
+            V = self.activation_swish(
+                torch.bmm(self.Av_7.unsqueeze(dim=0).repeat(x.shape[0], 1, 1), x.transpose(1, 2)))
 
-        x = self.activation_swish(torch.bmm(self.activation_soft(torch.bmm(Q, K)).to(torch.float32), V).transpose(1, 2))
+            x = self.activation_swish(torch.bmm(self.activation_soft(torch.bmm(Q, K)).to(torch.float32), V).transpose(1, 2))
 
-        x = (self.mlp_out(x.reshape(-1, self.hidden_dim)).reshape(-1, self.na, self.output_dim) *
-             torch.kron(laplacian, torch.ones((1, 1, self.output_dim), device=self.device))
-             .reshape(x.shape[0], self.na, -1)).transpose(1, 2)
+            x = (self.mlp_out(x.reshape(-1, self.hidden_dim)).reshape(-1, self.na, self.output_dim) *
+                 torch.kron(laplacian, torch.ones((1, 1, self.output_dim), device=self.device))
+                 .reshape(x.shape[0], self.na, -1)).transpose(1, 2)
+        else:
+            x = self.mlp_in(x.reshape(-1, self.input_dim)).reshape(x.shape[0], self.na, -1)
+
+            Q = self.activation_swish(
+                torch.bmm(self.Aq_4.unsqueeze(dim=0).repeat(x.shape[0], 1, 1), x.transpose(1, 2)) + self.Bq_4.unsqueeze(dim=0).repeat(x.shape[0], 1, 1))
+            K = self.activation_swish(
+                torch.bmm(self.Ak_4.unsqueeze(dim=0).repeat(x.shape[0], 1, 1), x.transpose(1, 2)) + self.Bk_4.unsqueeze(dim=0).repeat(x.shape[0], 1, 1)).transpose(1, 2)
+            V = self.activation_swish(
+                torch.bmm(self.Av_4.unsqueeze(dim=0).repeat(x.shape[0], 1, 1), x.transpose(1, 2)) + self.Bv_4.unsqueeze(dim=0).repeat(x.shape[0], 1, 1))
+
+            x = self.activation_swish(
+                torch.bmm(self.activation_soft(torch.bmm(Q, K)).to(torch.float32), V).transpose(1, 2))
+
+            x = self.mlp_hidden_4(x.reshape(-1, 2 * self.hidden_dim)).reshape(x.shape[0], self.na, -1)
+
+            Q = self.activation_swish(
+                torch.bmm(self.Aq_7.unsqueeze(dim=0).repeat(x.shape[0], 1, 1), x.transpose(1, 2)) + self.Bq_7.unsqueeze(dim=0).repeat(x.shape[0], 1, 1))
+            K = self.activation_swish(
+                torch.bmm(self.Ak_7.unsqueeze(dim=0).repeat(x.shape[0], 1, 1), x.transpose(1, 2)) + self.Bk_7.unsqueeze(dim=0).repeat(x.shape[0], 1, 1)).transpose(1, 2)
+            V = self.activation_swish(
+                torch.bmm(self.Av_7.unsqueeze(dim=0).repeat(x.shape[0], 1, 1), x.transpose(1, 2)) + self.Bv_7.unsqueeze(dim=0).repeat(x.shape[0], 1, 1))
+
+            x = self.activation_swish(
+                torch.bmm(self.activation_soft(torch.bmm(Q, K)).to(torch.float32), V).transpose(1, 2))
+
+            x = self.mlp_out(x.reshape(-1, self.hidden_dim)).reshape(-1, self.na, self.output_dim).transpose(1, 2)
 
         batch = int(x.shape[0] / x.shape[2])
 
@@ -1029,10 +1059,11 @@ class Att_J(nn.Module):
       Attention for J
     '''
 
-    def __init__(self, input_dim, output_dim, hidden_dim, na, device):
+    def __init__(self, input_dim, output_dim, hidden_dim, na, scenario_name, device):
         super().__init__()
 
         self.device = device
+        self.scenario_name = scenario_name
         self.activation_soft = nn.Softmax(dim=2)
         self.activation_softA = nn.Softmax(dim=1)
         self.activation_swish = nn.SiLU()
@@ -1076,38 +1107,65 @@ class Att_J(nn.Module):
             [output_dim]
         ).to(device)
 
-    def forward(self, x, laplacian):
+    def forward(self, x, laplacian, scenario_name):
         self.na = x.shape[1]
 
-        x = (self.mlp_in(x.reshape(-1, self.input_dim)).reshape(x.shape[0], self.na, -1) *
-             torch.kron(laplacian, torch.ones((1, 1, 2 * self.hidden_dim), device=self.device))
-             .reshape(x.shape[0], self.na, -1))
+        if scenario_name == "simple_spread_food" or scenario_name == "grassland_vmas" or scenario_name == "adversarial_vmas":
+            x = (self.mlp_in(x.reshape(-1, self.input_dim)).reshape(x.shape[0], self.na, -1) *
+                 torch.kron(laplacian, torch.ones((1, 1, 2 * self.hidden_dim), device=self.device))
+                 .reshape(x.shape[0], self.na, -1))
 
-        Q = self.activation_swish(
-            torch.bmm(self.Aq_4.unsqueeze(dim=0).repeat(x.shape[0], 1, 1), x.transpose(1, 2)))
-        K = self.activation_swish(
-            torch.bmm(self.Ak_4.unsqueeze(dim=0).repeat(x.shape[0], 1, 1), x.transpose(1, 2))).transpose(1, 2)
-        V = self.activation_swish(
-            torch.bmm(self.Av_4.unsqueeze(dim=0).repeat(x.shape[0], 1, 1), x.transpose(1, 2)))
+            Q = self.activation_swish(
+                torch.bmm(self.Aq_4.unsqueeze(dim=0).repeat(x.shape[0], 1, 1), x.transpose(1, 2)))
+            K = self.activation_swish(
+                torch.bmm(self.Ak_4.unsqueeze(dim=0).repeat(x.shape[0], 1, 1), x.transpose(1, 2))).transpose(1, 2)
+            V = self.activation_swish(
+                torch.bmm(self.Av_4.unsqueeze(dim=0).repeat(x.shape[0], 1, 1), x.transpose(1, 2)))
 
-        x = self.activation_swish(torch.bmm(self.activation_soft(torch.bmm(Q, K)).to(torch.float32), V).transpose(1, 2))
+            x = self.activation_swish(torch.bmm(self.activation_soft(torch.bmm(Q, K)).to(torch.float32), V).transpose(1, 2))
 
-        x = (self.mlp_hidden_4(x.reshape(-1, 2 * self.hidden_dim)).reshape(x.shape[0], self.na, -1) *
-             torch.kron(laplacian, torch.ones((1, 1, self.hidden_dim), device=self.device))
-             .reshape(x.shape[0], self.na, -1))
+            x = (self.mlp_hidden_4(x.reshape(-1, 2 * self.hidden_dim)).reshape(x.shape[0], self.na, -1) *
+                 torch.kron(laplacian, torch.ones((1, 1, self.hidden_dim), device=self.device))
+                 .reshape(x.shape[0], self.na, -1))
 
-        Q = self.activation_swish(
-            torch.bmm(self.Aq_7.unsqueeze(dim=0).repeat(x.shape[0], 1, 1), x.transpose(1, 2)))
-        K = self.activation_swish(
-            torch.bmm(self.Ak_7.unsqueeze(dim=0).repeat(x.shape[0], 1, 1), x.transpose(1, 2))).transpose(1, 2)
-        V = self.activation_swish(
-            torch.bmm(self.Av_7.unsqueeze(dim=0).repeat(x.shape[0], 1, 1), x.transpose(1, 2)))
+            Q = self.activation_swish(
+                torch.bmm(self.Aq_7.unsqueeze(dim=0).repeat(x.shape[0], 1, 1), x.transpose(1, 2)))
+            K = self.activation_swish(
+                torch.bmm(self.Ak_7.unsqueeze(dim=0).repeat(x.shape[0], 1, 1), x.transpose(1, 2))).transpose(1, 2)
+            V = self.activation_swish(
+                torch.bmm(self.Av_7.unsqueeze(dim=0).repeat(x.shape[0], 1, 1), x.transpose(1, 2)))
 
-        x = self.activation_swish(torch.bmm(self.activation_soft(torch.bmm(Q, K)).to(torch.float32), V).transpose(1, 2))
+            x = self.activation_swish(torch.bmm(self.activation_soft(torch.bmm(Q, K)).to(torch.float32), V).transpose(1, 2))
 
-        x = (self.mlp_out(x.reshape(-1, self.hidden_dim)).reshape(-1, self.na, self.output_dim) *
-             torch.kron(laplacian, torch.ones((1, 1, self.output_dim), device=self.device))
-             .reshape(x.shape[0], self.na, -1)).transpose(1, 2)
+            x = (self.mlp_out(x.reshape(-1, self.hidden_dim)).reshape(-1, self.na, self.output_dim) *
+                 torch.kron(laplacian, torch.ones((1, 1, self.output_dim), device=self.device))
+                 .reshape(x.shape[0], self.na, -1)).transpose(1, 2)
+        else:
+            x = self.mlp_in(x.reshape(-1, self.input_dim)).reshape(x.shape[0], self.na, -1)
+
+            Q = self.activation_swish(
+                torch.bmm(self.Aq_4.unsqueeze(dim=0).repeat(x.shape[0], 1, 1), x.transpose(1, 2)) + self.Bq_4.unsqueeze(dim=0).repeat(x.shape[0], 1, 1))
+            K = self.activation_swish(
+                torch.bmm(self.Ak_4.unsqueeze(dim=0).repeat(x.shape[0], 1, 1), x.transpose(1, 2)) + self.Bk_4.unsqueeze(dim=0).repeat(x.shape[0], 1, 1)).transpose(1, 2)
+            V = self.activation_swish(
+                torch.bmm(self.Av_4.unsqueeze(dim=0).repeat(x.shape[0], 1, 1), x.transpose(1, 2)) + self.Bv_4.unsqueeze(dim=0).repeat(x.shape[0], 1, 1))
+
+            x = self.activation_swish(
+                torch.bmm(self.activation_soft(torch.bmm(Q, K)).to(torch.float32), V).transpose(1, 2))
+
+            x = self.mlp_hidden_4(x.reshape(-1, 2 * self.hidden_dim)).reshape(x.shape[0], self.na, -1)
+
+            Q = self.activation_swish(
+                torch.bmm(self.Aq_7.unsqueeze(dim=0).repeat(x.shape[0], 1, 1), x.transpose(1, 2)) + self.Bq_7.unsqueeze(dim=0).repeat(x.shape[0], 1, 1))
+            K = self.activation_swish(
+                torch.bmm(self.Ak_7.unsqueeze(dim=0).repeat(x.shape[0], 1, 1), x.transpose(1, 2)) + self.Bq_7.unsqueeze(dim=0).repeat(x.shape[0], 1, 1)).transpose(1, 2)
+            V = self.activation_swish(
+                torch.bmm(self.Av_7.unsqueeze(dim=0).repeat(x.shape[0], 1, 1), x.transpose(1, 2)) + self.Bv_7.unsqueeze(dim=0).repeat(x.shape[0], 1, 1))
+
+            x = self.activation_swish(
+                torch.bmm(self.activation_soft(torch.bmm(Q, K)).to(torch.float32), V).transpose(1, 2))
+
+            x = self.mlp_out(x.reshape(-1, self.hidden_dim)).reshape(-1, self.na, self.output_dim).transpose(1, 2)
 
         # Reshape, kronecker and post-processing to ensure skew-symmetry
         batch = int(x.shape[0] / x.shape[2])
@@ -1288,9 +1346,15 @@ class MADDPG(nn.Module):
         observation[:, 34:36][dist1 < self.radius] = (x[:, index, :2] - x[:, self.agent_index, 0:2])[dist1 < self.radius]
         observation[:, 36:39][dist2 < self.radius] = x[:, index, 2:5][dist2 < self.radius]
 
+        # Depending on the scenario, the parameters of the l1 and l2 change
+        # Grassland: l1=0.1, l2=2
+        # Adversarial: l1=0.1, l2=2
+        l1 = 0.1
+        l2 = 2.0
+
         result = self.layers(observation)
-        result = torch.cat(((result[:, 1]-result[:, 2]).unsqueeze(1), (result[:, 3]-result[:, 4]).unsqueeze(1)), dim=1) * 0.1
-        result[torch.abs(result) > 1.0] = torch.sign(result[torch.abs(result) > 1]) * 2.0
+        result = torch.cat(((result[:, 1]-result[:, 2]).unsqueeze(1), (result[:, 3]-result[:, 4]).unsqueeze(1)), dim=1) * l1
+        result[torch.abs(result) > 1.0] = torch.sign(result[torch.abs(result) > 1]) * l2
 
         return result
 

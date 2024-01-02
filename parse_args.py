@@ -16,12 +16,12 @@ def parse_args():
     parser = argparse.ArgumentParser("SAC training with VMAS environment")
 
     """ What do I want to train """
-    parser.add_argument("--neural_network_name", type=str, default="MLP",
+    parser.add_argument("--neural_network_name", type=str, default="ph-MARL",
                         choices=['pH-MARL', 'MLP', 'MSA', 'GSA'],
                         help="available neural networks")
 
     """ Setup Environment """
-    parser.add_argument("--scenario_name", type=str, default="simple_spread_food",
+    parser.add_argument("--scenario_name", type=str, default="sampling",
                         choices=['reverse_transport', 'simple_spread',
                                  'sampling', 'grassland_vmas',
                                  'adversarial_vmas', 'simple_spread_food'],
@@ -135,7 +135,7 @@ def parse_args():
     parser.add_argument("--n_agents_adversaries_eval", type=int, default=4,
                         help="number of adversarial agents for evaluation")
 
-    parser.add_argument("--desired_frame", type=int, default=530000,
+    parser.add_argument("--desired_frame", type=int, default=1900000,
                         help="Frame from which restore the actor network for evaluation")
 
     parser.add_argument("--max_frames_eval", type=int, default=400,

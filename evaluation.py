@@ -3,7 +3,7 @@ from parse_args import parse_args
 
 import torch
 import numpy as np
-import PIL
+import PIL.Image
 
 import joblib
 
@@ -77,8 +77,9 @@ def main(args):
     elif args.neural_network_name == "GSA":
         from functions import GSA_actor
     else:
+        args.neural_network_name = "LEMURS"
         if args.scenario_name == "simple_spread" or args.scenario_name == "reverse_transport" or args.scenario_name == "sampling":
-            from functions import pH_MARL_actor
+            from functions import LEMURS_actor
         else:
             from functions import PIMARL_actor
 
