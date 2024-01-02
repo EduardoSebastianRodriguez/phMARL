@@ -1,8 +1,8 @@
 # Physics-Informed Multi-Agent Reinforcement Learning for Distributed Multi-Robot Problems
 
 This repository contains all the supplementary material 
-associated to the paper with title "Physics-Informed Multi-Agent 
-Reinforcement Learning for Distributed Multi-Robot Problems". 
+associated to the paper with title ["Physics-Informed Multi-Agent 
+Reinforcement Learning for Distributed Multi-Robot Problems"](http://arxiv.org/abs/2401.00212). 
 Please check out our project website for more details: https://eduardosebastianrodriguez.github.io/phMARL/.
 
 ## Dependencies
@@ -92,7 +92,7 @@ E. Sebastian, T. Duong, N. Atanasov, E. Montijano, C. Sagues. [Physics-Informed 
 @article{sebastian24phMARL,
 author = {Eduardo Sebasti\'{a}n AND Thai Duong AND Nikolay Atanasov AND Eduardo Montijano AND Carlos Sag\"{u}\'{e}s},
 title = {{Physics-Informed Multi-Agent Reinforcement Learning for Distributed Multi-Robot Problems}},
-journal = {arXiv},
+journal = {arXiv preprint arXiv:2401.00212},
 pages={1--14},
 year = {2024}
 }
