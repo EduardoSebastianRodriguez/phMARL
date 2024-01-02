@@ -84,13 +84,13 @@ All the policies are trained with 4 robots.
 
 
 ## Code
-The code is based on ```gym``` and makes use of some of the scenarios from ```vmas```. 
+The code is based on ```gym``` and makes use of some of the scenarios from [VMAS](https://github.com/proroklab/VectorizedMultiAgentSimulator/tree/main). 
 ````sampling```` scenario is reimplemented to fit the version used in the paper. Besides, the 
 scenarios with name ````food collection````, ```grassland``` and ```adversaries``` are implementations
-of the scenarios used in the paper "DARL1N: ", but parallelized as in the ```vmas``` simulator.
+of the scenarios used in the paper "[DARL1N: Distributed multi-Agent Reinforcement Learning with One-hop Neighbors](https://github.com/BaoqianWang/IROS22_DARL1N/tree/master)", but parallelized as in the ```vmas``` simulator.
 
-The file ````...```` includes instructions about how to modify ```vmas``` to include 
-the ````sampling````, ````food collection````, ```grassland``` and ```adversaries``` scenarios 
+The file ````...```` includes instructions about how to modify [VMAS](https://github.com/proroklab/VectorizedMultiAgentSimulator/tree/main) to include 
+the ````sampling````, ````food collection````, ```grassland``` and ```adversaries``` scenarios. 
 
 We provide the weights of ours policies for the different scenarios in the 
 folder ````data/````.
