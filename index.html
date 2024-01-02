@@ -247,6 +247,47 @@ code {
                 <tr>
                     <br>
             <br>
+
+                  <table align=center width=1000px>
+               <tr>
+                 <td align=center width=900px>
+                 <center>
+                 <span style="font-size:20px">
+                   <a href="./resources/simple_spread_example_modified.png"><img src = "./resources/simple_spread_example_modified.png" width="220px"></img></href></a>
+                     <a href="./resources/sampling_example_modified.png"><img src = "./resources/sampling_example_modified.png" width="220px"></img></href></a>
+                     <a href="./resources/reverse_transport_example_modified.png"><img src = "./resources/reverse_transport_example_modified.png" width="220px"></img></href></a>
+                     <a href="./resources/grassland_example_modified.png"><img src = "./resources/grassland_example_modified.png" width="220px"></img></href></a>
+                 </span>
+                 </center>
+                 </td>
+             </tr>
+                    <td width=600px>
+                      <center>
+                          <span style="font-size:18px"><i>Examples of scenarios addressed by our physics-informed multi-agent reinforcement learning approach. The scenarios cover a wide variety of cooperative/competitive behaviors and levels of coordination complexity. From left to right: navigation, informative sampling, cooperative transport, food collection with predators' evading.</i>
+                    </center>
+                    </td>
+                </tr>
+            </table>
+            <br><br>
+
+                  
+            <table align=center width=600px>
+                <tr>
+                    <td width=600px>
+                      <center>
+                          <a href="./resources/overall.png"><img src = "./resources/overall.png" width="600px"></img></href></a><br>
+                    </center>
+                    </td>
+                </tr>
+                    <td width=600px>
+                      <center>
+                          <span style="font-size:18px"><i>Overview of our physics-informed multi-agent reinforcement learning approach. The soft actor-critic method consists of: (a) an actor, the IDA-PBC self-attention-based neural network policy, (b) an interactive environment with, e.g., goals to reach and adversaries to avoid, and that keeps track of the correlations among robots encoded in the communication graph, (c) a global reward function that describes the task and steers the multi-agent reinforcement learning training without any particular factorization, and (d) a centralized critic, modeled as a neural network that learns the state-action value function relating the agent and the environment according to the desired task, which allows to learn the same policy for all the robots simultaneously with the same policy and value updates.</i>
+                    </center>
+                    </td>
+                </tr>
+            </table>
+                <br><br>
+                  
             <table align=center width=600px>
                 <tr>
                     <td width=600px>
@@ -257,141 +298,144 @@ code {
                 </tr>
                     <td width=600px>
                       <center>
-                          <span style="font-size:18px"><i>Proposed architecture for LEMURS. Robot i receives information from its neighbors. Then, the self-attention module processes the data to obtain the port-Hamiltonian terms. With this information, robot i computes the learned control policy through an ordinary differential equation solver.</i>
+                          <span style="font-size:18px"><i>Physics-informed neural network. Robot i receives information from the state of its k-hop neighbors. Then, each self-attention-based module process the data to obtain the port-Hamiltonian terms of the controller. Finally, robot i uses the learned IDA-PBC policy to compute the control input.</i>
                     </center>
                     </td>
                 </tr>
             </table>
                 <br><br>
+
+            
             <table align=center width=1000px>
                <tr>
                  <td align=center width=900px>
                  <center>
-                 <span style="font-size:20px"><a href="./resources/FixedSwapping.png"><img src = "./resources/FixedSwapping.png" width="300px"></img></href></a>
-                     <a href="./resources/TvSwapping.png"><img src = "./resources/TvSwapping.png" width="300px"></img></href></a>
-                     <a href="./resources/Flocking.png"><img src = "./resources/Flocking.png" width="300px"></img></href></a>
+                 <span style="font-size:20px">
+                   <a href="./resources/reverse_transport_scalability.png"><img src = "./resources/reverse_transport_scalability.png" width="300px"></img></href></a>
+                     <a href="./resources/sampling_scalability.png"><img src = "./resources/sampling_scalability.png" width="300px"></img></href></a>
+                     <a href="./resources/navigation_scalability.png"><img src = "./resources/navigation_scalability.png" width="300px"></img></href></a>
                  </span>
                  </center>
                  </td>
              </tr>
-            </table>
-            <table align=center width=1000px>
-               <tr>
-                 <td align=center width=900px>
-                 <center>
-                 <span style="font-size:20px"><a href="./resources/FS_animation44.gif"><img src = "./resources/FS_animation44.gif" width="300px"></img></href></a>
-                     <a href="./resources/TVSS_animation44.gif"><img src = "./resources/TVSS_animation44.gif" width="300px"></img></href></a>
-                     <a href="./resources/F_animation44.gif"><img src = "./resources/F_animation44.gif" width="300px"></img></href></a>
-                 </span>
-                 </center>
-                 </td>
-             </tr>
-            </table>
-            <table align=center width=1000px>>
-                <tr>
                     <td width=600px>
                       <center>
-                          <span style="font-size:18px"><i>LEMURS can learn the control policies that replicate cooperative tasks from just observed demonstrations. For instance, LEMURS can learn how to navigate and avoid collisions in a fixed communication topology (left), time-varying topology (center) or to flock (right). (Top) Trajectories from demonstrations, (bottom) learned control policies.</i>
+                          <span style="font-size:18px"><i>Comparison of the performance of the ablated control policies when we scale the number of robots in deployment. In all the scenarios, our proposed combination of a port-Hamiltonian modeling and self-attention-based neural networks achieves the best cumulative reward without further training the control policy. Each bar displays the mean and standard deviation of the average cumulative reward over 10 evaluation episodes.</i>
                     </center>
                     </td>
                 </tr>
             </table>
+            <br><br>
 
-                <br><br>
-            <table align=center width=1000px>
+    <table align=center width=1000px>
                <tr>
                  <td align=center width=900px>
                  <center>
-                 <span style="font-size:20px"><a href="./resources/FS_animation412.gif"><img src = "./resources/FS_animation412.gif" width="300px"></img></href></a>
-                     <a href="./resources/TVSS_animation412.gif"><img src = "./resources/TVSS_animation412.gif" width="300px"></img></href></a>
-                     <a href="./resources/F_animation412.gif"><img src = "./resources/F_animation412.gif" width="300px"></img></href></a>
+                 <span style="font-size:20px">
+                   <a href="./resources/food_collection_scalability.png"><img src = "./resources/food_collection_scalability.png" width="300px"></img></href></a>
+                     <a href="./resources/grassland_scalability.png"><img src = "./resources/grassland_scalability.png" width="300px"></img></href></a>
+                     <a href="./resources/adversarial_scalability.png"><img src = "./resources/adversarial_scalability.png" width="300px"></img></href></a>
                  </span>
                  </center>
                  </td>
              </tr>
-            </table>
-            <table align=center width=1000px>>
-                <tr>
                     <td width=600px>
                       <center>
-                          <span style="font-size:18px"><i> The resulting control policies generalize to any number of robots in the team, while preserving closed-loop stability guarantees and a distributed communication topology.</i>
+                          <span style="font-size:18px"><i>Comparison of our proposed physics-informed multi-agent reinforcement learning approach with other state-of-the-art approaches. pH-MARL is only trained with $n=4$ robots and deployed with different team sizes, while the state-of-the-art control policies are trained for each specific number of robots.</i>
                     </center>
                     </td>
                 </tr>
             </table>
-
-                <br><br>
-            <table align=center width=1000px>
-               <tr>
-                 <td align=center width=900px>
-                 <center>
-                 <span style="font-size:20px"><a href="./resources/FS_animation464.gif"><img src = "./resources/FS_animation464.gif" width="300px"></img></href></a>
-                     <a href="./resources/TVSS_animation464.gif"><img src = "./resources/TVSS_animation464.gif" width="300px"></img></href></a>
-                     <a href="./resources/F_animation464.gif"><img src = "./resources/F_animation464.gif" width="300px"></img></href></a>
-                 </span>
-                 </center>
-                 </td>
-             </tr>
-            </table>
-            <table align=center width=1000px>>
-                <tr>
-                    <td width=600px>
-                      <center>
-                          <span style="font-size:18px"><i> We can train LEMURS with demonstrations of 4 robots and deploy in teams of more than 60 robots and still achieve a successful cooperative behavior.</i>
-                    </center>
-                    </td>
-                </tr>
-            </table>
-
-                <br><br>
-            <table align=center width=1000px>
-               <tr>
-                 <td align=center width=900px>
-                 <center>
-                 <span style="font-size:20px"><a href="./resources/FixedSwappingScalability.png"><img src = "./resources/FixedSwappingScalability.png" width="300px"></img></href></a>
-                     <a href="./resources/TvSwappingScalability.png"><img src = "./resources/TvSwappingScalability.png" width="300px"></img></href></a>
-                     <a href="./resources/FlockingScalability.png"><img src = "./resources/FlockingScalability.png" width="300px"></img></href></a>
-                 </span>
-                 </center>
-                 </td>
-             </tr>
-            </table>
-            <table align=center width=1000px>>
-                <tr>
-                    <td width=600px>
-                      <center>
-                          <span style="font-size:18px"><i> There is no significant difference in evaluation nor deployment when the size of the team changes.</i>
-                    </center>
-                    </td>
-                </tr>
-            </table>
-
-                <br><br>
-            <table align=center width=1000px>
-               <tr>
-                 <td align=center width=900px>
-                 <center>
-                 <span style="font-size:20px"><a href="./resources/FixedSwappingTraining.png"><img src = "./resources/FixedSwappingTraining.png" width="300px"></img></href></a>
-                     <a href="./resources/TvSwappingTraining.png"><img src = "./resources/TvSwappingTraining.png" width="300px"></img></href></a>
-                     <a href="./resources/FlockingTraining.png"><img src = "./resources/FlockingTraining.png" width="300px"></img></href></a>
-                 </span>
-                 </center>
-                 </td>
-             </tr>
-            </table>
-            <table align=center width=1000px>>
-                <tr>
-                    <td width=600px>
-                      <center>
-                          <span style="font-size:18px"><i> LEMURS outperforms other learning methods in capturing the complex interactions from the task demonstrations.</i>
-                    </center>
-                    </td>
-                </tr>
-            </table>
-
-            <br>
+            <br><br>
 
           
+
+    <table align=center width=1000px>
+      <td width=600px>
+                      <center>
+                          <span style="font-size:18px"><i>Examples of multi-robot scenarios for different initial conditions and number of robots. It is interesting to see that some aspects of the environment do not scale with the team size, e.g., the size and weight of the box in the reverse transport scenario, the number of hot spots in the sampling scenario or the size of the arena in the navigation scenario. From top to bottom: reverse transport, navigation, sampling, food collection, grassland, adversarial.</i>
+                    </center>
+                    </td>
+                </tr>
+               <tr>
+                 <td align=center width=900px>
+                 <center>
+                 <span style="font-size:20px">
+                   <a href="./resources/reverse_transport_4_7_LEMURS.gif"><img src = "./resources/reverse_transport_4_7_LEMURS.gif" width="220px"></img></href></a>
+                     <a href="./resources/reverse_transport_8_3_LEMURS.gif"><img src = "./resources/reverse_transport_8_3_LEMURS.gif" width="220px"></img></href></a>
+                     <a href="./resources/reverse_transport_12_4_LEMURS.gif"><img src = "./resources/reverse_transport_12_4_LEMURS.gif" width="220px"></img></href></a>
+                     <a href="./resources/reverse_transport_16_9_LEMURS.gif"><img src = "./resources/reverse_transport_16_9_LEMURS.gif" width="220px"></img></href></a>
+                 </span>
+                 </center>
+                 </td>
+             </tr>
+                
+               <tr>
+                 <td align=center width=900px>
+                 <center>
+                 <span style="font-size:20px">
+                   <a href="./resources/simple_spread_4_9_LEMURS.gif"><img src = "./resources/simple_spread_4_9_LEMURS.gif" width="220px"></img></href></a>
+                     <a href="./resources/simple_spread_5_0_LEMURS.gif"><img src = "./resources/simple_spread_5_0_LEMURS.gif" width="220px"></img></href></a>
+                     <a href="./resources/simple_spread_6_1_LEMURS.gif"><img src = "./resources/simple_spread_6_1_LEMURS.gif" width="220px"></img></href></a>
+                     <a href="./resources/simple_spread_8_0_LEMURS.gif"><img src = "./resources/simple_spread_8_0_LEMURS.gif" width="220px"></img></href></a>
+                 </span>
+                 </center>
+                 </td>
+             </tr>
+      
+               <tr>
+                 <td align=center width=900px>
+                 <center>
+                 <span style="font-size:20px">
+                   <a href="./resources/sampling_3_0_LEMURS.gif"><img src = "./resources/sampling_3_0_LEMURS.gif" width="220px"></img></href></a>
+                     <a href="./resources/sampling_5_3_LEMURS.gif"><img src = "./resources/sampling_5_3_LEMURS.gif" width="220px"></img></href></a>
+                     <a href="./resources/sampling_7_0_LEMURS.gif"><img src = "./resources/sampling_7_0_LEMURS.gif" width="220px"></img></href></a>
+                     <a href="./resources/sampling_9_0_LEMURS.gif"><img src = "./resources/sampling_9_0_LEMURS.gif" width="220px"></img></href></a>
+                 </span>
+                 </center>
+                 </td>
+             </tr>
+      
+               <tr>
+                 <td align=center width=900px>
+                 <center>
+                 <span style="font-size:20px">
+                   <a href="./resources/simple_spread_food_3_2_LEMURS.gif"><img src = "./resources/simple_spread_food_3_2_LEMURS.gif" width="220px"></img></href></a>
+                     <a href="./resources/simple_spread_food_6_2_LEMURS.gif"><img src = "./resources/simple_spread_food_6_2_LEMURS.gif" width="220px"></img></href></a>
+                     <a href="./resources/simple_spread_food_12_1_LEMURS.gif"><img src = "./resources/simple_spread_food_12_1_LEMURS.gif" width="220px"></img></href></a>
+                     <a href="./resources/simple_spread_food_24_6_LEMURS.gif"><img src = "./resources/simple_spread_food_24_6_LEMURS.gif" width="220px"></img></href></a>
+                 </span>
+                 </center>
+                 </td>
+             </tr>
+      
+               <tr>
+                 <td align=center width=900px>
+                 <center>
+                 <span style="font-size:20px">
+                   <a href="./resources/grassland_vmas_3_8_LEMURS.gif"><img src = "./resources/grassland_vmas_3_8_LEMURS.gif" width="220px"></img></href></a>
+                     <a href="./resources/grassland_vmas_6_2_LEMURS.gif"><img src = "./resources/grassland_vmas_6_2_LEMURS.gif" width="220px"></img></href></a>
+                     <a href="./resources/grassland_vmas_12_1_LEMURS.gif"><img src = "./resources/grassland_vmas_12_1_LEMURS.gif" width="220px"></img></href></a>
+                     <a href="./resources/grassland_vmas_24_9_LEMURS.gif"><img src = "./resources/grassland_vmas_24_9_LEMURS.gif" width="220px"></img></href></a>
+                 </span>
+                 </center>
+                 </td>
+             </tr>
+      
+               <tr>
+                 <td align=center width=900px>
+                 <center>
+                 <span style="font-size:20px">
+                   <a href="./resources/adversarial_vmas_3_2_LEMURS.gif"><img src = "./resources/adversarial_vmas_3_2_LEMURS.gif" width="220px"></img></href></a>
+                     <a href="./resources/adversarial_vmas_6_1_LEMURS.gif"><img src = "./resources/adversarial_vmas_6_1_LEMURS.gif" width="220px"></img></href></a>
+                     <a href="./resources/adversarial_vmas_12_1_LEMURS.gif"><img src = "./resources/adversarial_vmas_12_1_LEMURS.gif" width="220px"></img></href></a>
+                     <a href="./resources/adversarial_vmas_24_0_LEMURS.gif"><img src = "./resources/adversarial_vmas_24_0_LEMURS.gif" width="220px"></img></href></a>
+                 </span>
+                 </center>
+                 </td>
+             </tr>
+            </table>
+            <br><br>
 
         <hr>
          <center><h1>Code</h1></center>
