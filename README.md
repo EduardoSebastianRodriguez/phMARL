@@ -92,7 +92,7 @@ of the scenarios used in the paper "[DARL1N: Distributed multi-Agent Reinforceme
 The file ````instructions_scenarios```` includes instructions about how to modify [VMAS](https://github.com/proroklab/VectorizedMultiAgentSimulator/tree/main) to include 
 the ````sampling````, ````food collection````, ```grassland``` and ```adversaries``` scenarios. 
 
-We provide the weights of ours policies for the different scenarios in the 
+We provide the weights of our policies for the different scenarios in the 
 folder ````data/````.
 
 You can train your own policies by executing ````python training.py````, tuning
