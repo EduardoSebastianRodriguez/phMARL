@@ -7,13 +7,31 @@ Please check out our project website for more details: https://eduardosebastianr
 
 ## Dependencies
 
-Our code is tested with Ubuntu 20.04 and Python 3.10. It depends on the following Python packages: 
+Our code is tested with ````Ubuntu 18.04```` and ````Python 3.8````. It depends on the following Python packages: 
 
-```torch 1.12.1``` 
+```gym 0.26.2```
 
-```numpy 1.24.3```
+```vmas 1.2.6```
 
-```matplotlib 3.7.1```
+```torch 1.13.1``` 
+
+```numpy 1.24.0``` 
+
+```scipy 1.10.1```
+
+```matplotlib 3.7.0```
+
+```tqdm 4.64.1```
+
+```typing 3.7.4.3```
+
+```pandas 1.5.3```
+
+```Pillow 9.4.0```
+
+```joblib 1.3.2```
+
+```PyQt5 5.15.9```
 
 ## Some qualitative results
 
