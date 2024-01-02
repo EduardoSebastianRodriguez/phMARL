@@ -23,7 +23,7 @@ def main(args):
     cuda_name = "cuda:0"
     preprocessor = True
     folder = "data"
-    device = "cpu" if not torch.has_cuda else "cuda"
+    device = "cpu" if not torch.has_cuda else cuda_name
     wrapper = None
     torch.manual_seed(args.seed)
     np.random.seed(args.seed)
