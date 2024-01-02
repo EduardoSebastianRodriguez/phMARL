@@ -89,7 +89,7 @@ The code is based on ```gym``` and makes use of some of the scenarios from [VMAS
 scenarios with name ````food collection````, ```grassland``` and ```adversaries``` are implementations
 of the scenarios used in the paper "[DARL1N: Distributed multi-Agent Reinforcement Learning with One-hop Neighbors](https://github.com/BaoqianWang/IROS22_DARL1N/tree/master)", but parallelized as in the ```vmas``` simulator.
 
-The file ````...```` includes instructions about how to modify [VMAS](https://github.com/proroklab/VectorizedMultiAgentSimulator/tree/main) to include 
+The file ````instructions_scenarios```` includes instructions about how to modify [VMAS](https://github.com/proroklab/VectorizedMultiAgentSimulator/tree/main) to include 
 the ````sampling````, ````food collection````, ```grassland``` and ```adversaries``` scenarios. 
 
 We provide the weights of ours policies for the different scenarios in the 
@@ -98,8 +98,7 @@ folder ````data/````.
 You can train your own policies by executing ````python training.py````, tuning
 the training parameters in the file ````parse_args.py````. You can run ````python evaluation.py````
 to evaluate your trained policies and get some cool animations. The evaluation parameters can also be tuned
-in the file ````parse_args.py````. The other files are auxiliary, they provide the metrics and pannels displayed
-in the paper.
+in the file ````parse_args.py````. 
 
 ## Citation
 If you find our papers/code useful for your research, please cite our work as follows.
