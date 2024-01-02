@@ -95,7 +95,7 @@ the ````sampling````, ````food collection````, ```grassland``` and ```adversarie
 We provide the weights of ours policies for the different scenarios in the 
 folder ````data/````.
 
-Nevertheless, you can train your own policies by executing ````python training.py````, tuning
+You can train your own policies by executing ````python training.py````, tuning
 the training parameters in the file ````parse_args.py````. You can run ````python evaluation.py````
 to evaluate your trained policies and get some cool animations. The evaluation parameters can also be tuned
 in the file ````parse_args.py````. The other files are auxiliary, they provide the metrics and pannels displayed
