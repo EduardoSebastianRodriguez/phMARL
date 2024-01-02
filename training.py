@@ -1,7 +1,7 @@
 from vmas import make_env
 from vmas.simulator.utils import save_video
 from reinforcement_functions import ReplayBuffer
-from functions import LEMURS_qvalue, LEMURS_actor
+from functions import pH_MARL_qvalue, pH_MARL_actor
 from functions import PIMARL_qvalue, PIMARL_actor
 from functions import MLP_qvalue, MLP_actor
 from functions import MSA_qvalue, MSA_actor
@@ -23,7 +23,7 @@ def main(args):
     cuda_name = "cuda:0"
     preprocessor = True
     folder = "data"
-    device = "cpu" if not torch.has_cuda else cuda_name
+    device = "cpu" if not torch.has_cuda else "cuda"
     wrapper = None
     torch.manual_seed(args.seed)
     np.random.seed(args.seed)
@@ -133,11 +133,11 @@ def main(args):
         q_value_target_net_2 = GSA_qvalue(qvalue_config)
     else:
         if args.scenario_name == "simple_spread" or args.scenario_name == "reverse_transport" or args.scenario_name == "sampling":
-            actor_net = LEMURS_actor(actor_config)
-            q_value_net_1 = LEMURS_qvalue(qvalue_config)
-            q_value_net_2 = LEMURS_qvalue(qvalue_config)
-            q_value_target_net_1 = LEMURS_qvalue(qvalue_config)
-            q_value_target_net_2 = LEMURS_qvalue(qvalue_config)
+            actor_net = pH_MARL_actor(actor_config)
+            q_value_net_1 = pH_MARL_qvalue(qvalue_config)
+            q_value_net_2 = pH_MARL_qvalue(qvalue_config)
+            q_value_target_net_1 = pH_MARL_qvalue(qvalue_config)
+            q_value_target_net_2 = pH_MARL_qvalue(qvalue_config)
         else:
             actor_net = PIMARL_actor(actor_config)
             q_value_net_1 = PIMARL_qvalue(qvalue_config)

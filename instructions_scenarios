@@ -1,0 +1,38 @@
+All the scenarios used in the paper are implemented in VMAS version 1.2.6. In the following, we detail how to setup them:
+
+* Reverse transport: nothing to do.
+
+* Navigation: nothing to do, it is already included under the name "simple_spread".
+
+* Sampling: it is included in a newer version of VMAS. Therefore, to include in the version 1.2.6., the following steps are needed:
+
+	* Copy and paste the file "sampling.py" from ../site-packages/vmas/scenarios/
+	* Fix rendering file to add "render_function_util" function: ../site-packages/vmas/simulator/rendering.py (copy paste the function from newer version of vmas)
+	* Add the following line to the same "rendering.py" file: "from typing import Callable, Tuple, Optional, Union"
+	* Import torch in the same rendering file
+	* Add the line the same rendering file: "from vmas.simulator.utils import x_to_rgb_colormap, TorchUtils"
+	* Fix "utils.py" file to add "x_to_rgb_colormap" function: ../site-packages/vmas/simulator/utils.py (copy paste the function from newer version of vmas)
+	* In "utils.py", go to class "TorchUtils" and copy paste the "to_numpy" static method from the newer version of vmas.
+	* In the same file, copy the following line: "from typing import List, Tuple, Union, Dict".
+	* At the top of the file, after DEVICE_TYPING, copy paste the following colormap:
+
+				VIRIDIS_CMAP = np.array(
+				    [
+					[0.267004, 0.004874, 0.329415],
+					[0.278826, 0.17549, 0.483397],
+					[0.229739, 0.322361, 0.545706],
+					[0.172719, 0.448791, 0.557885],
+					[0.127568, 0.566949, 0.550556],
+					[0.157851, 0.683765, 0.501686],
+					[0.369214, 0.788888, 0.382914],
+					[0.678489, 0.863742, 0.189503],
+				    ]
+				)
+
+	* Copy and paste "Image2" function in file "rendering.py".
+
+
+* Grassland: copy and paste the file "grassland_vmas.py" in the folder of the repo "scenarios/" in the folder "../site-packages/vmas/scenarios/"
+
+* Adversarial: copy and paste the file "adversarial_vmas.py" in the folder of the repo "scenarios/" in the folder "../site-packages/vmas/scenarios/"
+

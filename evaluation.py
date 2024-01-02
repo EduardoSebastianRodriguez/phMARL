@@ -78,7 +78,7 @@ def main(args):
         from functions import GSA_actor
     else:
         if args.scenario_name == "simple_spread" or args.scenario_name == "reverse_transport" or args.scenario_name == "sampling":
-            from functions import LEMURS_actor
+            from functions import pH_MARL_actor
         else:
             from functions import PIMARL_actor
 

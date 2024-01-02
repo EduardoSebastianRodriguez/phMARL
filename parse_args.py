@@ -17,7 +17,7 @@ def parse_args():
 
     """ What do I want to train """
     parser.add_argument("--neural_network_name", type=str, default="MLP",
-                        choices=['LEMURS', 'MLP', 'GNN', 'Attention'],
+                        choices=['pH-MARL', 'MLP', 'MSA', 'GSA'],
                         help="available neural networks")
 
     """ Setup Environment """
@@ -135,7 +135,7 @@ def parse_args():
     parser.add_argument("--n_agents_adversaries_eval", type=int, default=4,
                         help="number of adversarial agents for evaluation")
 
-    parser.add_argument("--desired_frame", type=int, default=530000, 
+    parser.add_argument("--desired_frame", type=int, default=530000,
                         help="Frame from which restore the actor network for evaluation")
 
     parser.add_argument("--max_frames_eval", type=int, default=400,
