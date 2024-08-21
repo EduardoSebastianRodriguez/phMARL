@@ -56,7 +56,7 @@ All the policies are trained with 4 robots.
 
 |                     3 robots                      |                    5 robots                     |                    7 robots                     |                       9 robots                       |
 |:-------------------------------------------------:|:-----------------------------------------------:|:-----------------------------------------------:|:----------------------------------------------------:|
-| <img src="figs/sampling_3_0_LEMURS.gif" height="190"> | <img src="figs/sampling_5_3_LEMURS.gif" height="190"> | <img src="figs/sampling_7_0_LEMURS.gif" height="190"> | <img src="figs/sampling_9_0_LEMURS.gif" height="190"> |  
+| <img src="figs/sampling_3_0_LEMURS_new.gif" height="190"> | <img src="figs/sampling_5_1_LEMURS_new.gif" height="190"> | <img src="figs/sampling_7_0_LEMURS_new.gif" height="190"> | <img src="figs/sampling_9_0_LEMURS_new.gif" height="190"> |  
 
 ### Navigation
 
