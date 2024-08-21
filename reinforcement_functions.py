@@ -51,7 +51,7 @@ class SquashedNormal(pyd.transformed_distribution.TransformedDistribution):
         self.scale = scale
 
         self.base_dist = pyd.Normal(loc, scale)
-        transforms = [TanhTransform(), torch.distributions.transforms.AffineTransform(0, 1.0)]
+        transforms = [TanhTransform()]
         super().__init__(self.base_dist, transforms)
 
     @property
