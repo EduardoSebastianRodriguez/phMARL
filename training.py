@@ -365,11 +365,11 @@ def main(args):
                     good_action_distribution = actor_net(b_next_obs)
                     good_actions = good_action_distribution.rsample()
                     actions = torch.cat((adversarial_actions, good_actions), dim=1)
-                    log_probs = good_action_distribution.log_prob(good_actions*0.999).sum(dim=-1).sum(dim=-1)
+                    log_probs = good_action_distribution.log_prob(good_actions ).sum(dim=-1).sum(dim=-1)
                 else:
                     action_distribution = actor_net(b_next_obs)
                     actions = action_distribution.rsample()
-                    log_probs = action_distribution.log_prob(actions*0.999).sum(dim=-1).sum(dim=-1)
+                    log_probs = action_distribution.log_prob(actions ).sum(dim=-1).sum(dim=-1)
                 q_value_target_1 = q_value_target_net_1(b_next_obs, actions).flatten()
                 q_value_target_2 = q_value_target_net_2(b_next_obs, actions).flatten()
 
@@ -409,11 +409,11 @@ def main(args):
                     good_action_distribution = actor_net(b_obs)
                     good_actions = good_action_distribution.rsample()
                     actions = torch.cat((adversarial_actions, good_actions), dim=1)
-                    log_probs = good_action_distribution.log_prob(good_actions*0.999).sum(dim=-1).sum(dim=-1)
+                    log_probs = good_action_distribution.log_prob(good_actions ).sum(dim=-1).sum(dim=-1)
                 else:
                     action_distribution = actor_net(b_obs)
                     actions = action_distribution.rsample()
-                    log_probs = action_distribution.log_prob(actions*0.999).sum(dim=-1).sum(dim=-1)
+                    log_probs = action_distribution.log_prob(actions ).sum(dim=-1).sum(dim=-1)
                 q_value_1 = q_value_net_1(b_obs, actions).flatten()
                 q_value_2 = q_value_net_2(b_obs, actions).flatten()
                 loss_policy = (sac_config["alpha"] * log_probs - torch.minimum(q_value_1, q_value_2)).mean()
