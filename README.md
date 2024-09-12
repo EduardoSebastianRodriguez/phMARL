@@ -33,6 +33,8 @@ Our code is tested with ````Ubuntu 18.04```` and ````Python 3.8````. It depends 
 
 ```PyQt5 5.15.9```
 
+The paper includes experiments using the [Multi-Agent MuJoCo platform](https://robotics.farama.org/envs/MaMuJoCo/). The code to replicate the results associated to those experiments adapts the [repository](https://github.com/cyanrain7/TRPO-in-MARL/tree/master) of the paper "[Trust Region Policy Optimisation in Multi-Agent Reinforcement Learning](https://arxiv.org/pdf/2109.11251)", and it can be found in the ```mamujoco``` folder. The requirements for running this part of the code can be found in the folder.
+
 ## Some qualitative results
 
 We propose a novel MARL approach to learn distributed-by-design control policies for general cooperative/competitive multi-robot tasks. 
