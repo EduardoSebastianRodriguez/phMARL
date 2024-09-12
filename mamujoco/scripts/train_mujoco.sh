@@ -20,11 +20,11 @@
 #done
 
 env="mujoco"
-scenario="Ant-v2"
-agent_conf="4x2"  # first number is number of agents, second number is number of joints per agent
+scenario="HalfCheetah-v2"
+agent_conf="6x1"  # first number is number of agents, second number is number of joints per agent
 agent_obsk=0 # This means that each agent observes the nearest "agent_obsk" agents
-algo="ph-MARL" # "hatrpo", "happo", "ph-MARL"
-exp="ph-MARL" # "hatrpo", "happo", "ph-MARL"
+algo="hatrpo" # "hatrpo", "happo",
+exp="ph-MARL" # "hatrpo", "happo",
 running_max=20
 kl_threshold=1e-4
 echo "env is ${env}, scenario is ${scenario}, algo is ${algo}, exp is ${exp}, max seed is ${seed_max}"
