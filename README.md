@@ -33,7 +33,7 @@ Our code is tested with ````Ubuntu 18.04```` and ````Python 3.8````. It depends 
 
 ```PyQt5 5.15.9```
 
-The paper includes experiments using the [Multi-Agent MuJoCo platform](https://robotics.farama.org/envs/MaMuJoCo/). The code to replicate the results associated to those experiments adapts the [repository](https://github.com/cyanrain7/TRPO-in-MARL/tree/master) of the paper "[Trust Region Policy Optimisation in Multi-Agent Reinforcement Learning](https://arxiv.org/pdf/2109.11251)", and it can be found in the ```mamujoco``` folder. The requirements for running this part of the code can be found in the folder.
+The paper includes experiments using the [Multi-Agent MuJoCo platform](https://robotics.farama.org/envs/MaMuJoCo/). The code to replicate the results associated to those experiments adapts the [repository](https://github.com/cyanrain7/TRPO-in-MARL/tree/master) of the paper "[Trust Region Policy Optimisation in Multi-Agent Reinforcement Learning](https://arxiv.org/pdf/2109.11251)", and it can be found in the ```mamujoco``` folder. The requirements for running this part of the code can be found in the folder. For further instructions on how to install [Multi-Agent MuJoCo platform](https://robotics.farama.org/envs/MaMuJoCo/), see [https://github.com/openai/mujoco-py](https://github.com/openai/mujoco-py) and [https://github.com/schroederdewitt/multiagent_mujoco](https://github.com/schroederdewitt/multiagent_mujoco).
 
 ## Some qualitative results
 
@@ -101,6 +101,9 @@ You can train your own policies by executing ````python training.py````, tuning
 the training parameters in the file ````parse_args.py````. You can run ````python evaluation.py````
 to evaluate your trained policies and get some cool animations. The evaluation parameters can also be tuned
 in the file ````parse_args.py````. 
+
+You can train the policies for the Multi-Agent MuJoCo scenarios by executing the ````train_mujoco.sh```` file. To choose the port-Hamiltonian policy as the actor parameterization, go to ````mamujoco/algorithms/actor_critic```` and turn the
+constructor parameter ````ph_MARL```` to ````True````.
 
 ## Citation
 If you find our papers/code useful for your research, please cite our work as follows.
