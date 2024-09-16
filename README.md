@@ -84,6 +84,8 @@ All the policies are trained with 4 robots.
 |:-------------------------------------------------:|:-----------------------------------------------:|:-----------------------------------------------:|:----------------------------------------------------:|
 | <img src="figs/adversarial_vmas_3_2_LEMURS.gif" height="190"> | <img src="figs/adversarial_vmas_6_1_LEMURS.gif" height="190"> | <img src="figs/adversarial_vmas_12_1_LEMURS.gif" height="190"> | <img src="figs/adversarial_vmas_24_0_LEMURS.gif" height="190"> |  
 
+### Half Cheetah
+ <img src="figs/halfcheetah.gif" height="400">
 
 ## Code
 The code is based on ```gym``` and makes use of some of the scenarios from [VMAS: Vectorized Multi-Agent Simulator](https://github.com/proroklab/VectorizedMultiAgentSimulator/tree/main). 
