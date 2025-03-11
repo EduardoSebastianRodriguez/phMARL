@@ -35,6 +35,8 @@ Our code is tested with ````Ubuntu 18.04```` and ````Python 3.8````. It depends 
 
 The paper includes experiments using the [Multi-Agent MuJoCo platform](https://robotics.farama.org/envs/MaMuJoCo/). The code to replicate the results associated to those experiments adapts the [repository](https://github.com/cyanrain7/TRPO-in-MARL/tree/master) of the paper "[Trust Region Policy Optimisation in Multi-Agent Reinforcement Learning](https://arxiv.org/pdf/2109.11251)", and it can be found in the ```mamujoco``` folder. The requirements for running this part of the code can be found in the folder. For further instructions on how to setup [Multi-Agent MuJoCo](https://robotics.farama.org/envs/MaMuJoCo/), see [https://github.com/openai/mujoco-py](https://github.com/openai/mujoco-py) and [https://github.com/schroederdewitt/multiagent_mujoco](https://github.com/schroederdewitt/multiagent_mujoco).
 
+On the other hand, the paper also includes experiments using [Robotarium](https://www.robotarium.gatech.edu/).The code to replicate the results associated to those experiments can be found in the ```robotarium``` folder. In particular, once Robotarium is configured, one must simply copy the files and paste them inside the ```robotarium_python_simulator``` folder. For further instructions on how to set up [Robotarium for Python](https://robotics.farama.org/envs/MaMuJoCo/), see [https://github.com/robotarium/robotarium_python_simulator](https://github.com/robotarium/robotarium_python_simulator).
+
 ## Some qualitative results
 
 We propose a novel MARL approach to learn distributed-by-design control policies for general cooperative/competitive multi-robot tasks. 
@@ -87,6 +89,13 @@ All the policies are trained with 4 robots.
 ### Half Cheetah
  <img src="figs/halfcheetah.gif" height="400">
 
+### Robotarium
+|                     4 robots (perfect comms)                      |                    8 robots (imperfect comms)                   |                    12 robots (imperfect comms)                     |                      16 robots (imperfect comms)                        |
+|:-------------------------------------------------:|:-----------------------------------------------:|:-----------------------------------------------:|:----------------------------------------------------:|
+| <img src="figs/navigation_4_fast.gif" height="190"> | <img src="figs/navigation_8_fast.gif" height="190"> | <img src="figs/navigation_12_fast.gif" height="190"> | <img src="figs/navigation_16_fast.gif" height="190"> | 
+|:-------------------------------------------------:|:-----------------------------------------------:|:-----------------------------------------------:|:----------------------------------------------------:|
+| <img src="figs/4_2_fast.gif" height="190"> | <img src="figs/8_3_fast.gif" height="190"> | <img src="figs/12_4_fast.gif" height="190"> | <img src="figs/16_5_fast.gif" height="190"> | 
+
 ## Code
 The code is based on ```gym``` and makes use of some of the scenarios from [VMAS: Vectorized Multi-Agent Simulator](https://github.com/proroklab/VectorizedMultiAgentSimulator/tree/main). 
 ````sampling```` scenario is reimplemented to fit the version used in the paper. Besides, the 
@@ -110,7 +119,7 @@ constructor parameter ````ph_MARL```` to ````True````.
 ## Citation
 If you find our papers/code useful for your research, please cite our work as follows.
 
-E. Sebastian, T. Duong, N. Atanasov, E. Montijano, C. Sagues. [Physics-Informed Multi-Agent Reinforcement Learning for Distributed Multi-Robot Problems](https://eduardosebastianrodriguez.github.io/phMARL/). Under review at IEEE T-RO, 2024
+E. Sebastian, T. Duong, N. Atanasov, E. Montijano, C. Sagues. [Physics-Informed Multi-Agent Reinforcement Learning for Distributed Multi-Robot Problems](https://eduardosebastianrodriguez.github.io/phMARL/). Under review at IEEE T-RO, 2025
 
  ```bibtex
 @article{sebastian24phMARL,
@@ -118,6 +127,6 @@ author = {Eduardo Sebasti\'{a}n AND Thai Duong AND Nikolay Atanasov AND Eduardo 
 title = {{Physics-Informed Multi-Agent Reinforcement Learning for Distributed Multi-Robot Problems}},
 journal = {arXiv preprint arXiv:2401.00212},
 pages={1--14},
-year = {2024}
+year = {2025}
 }
 ```
