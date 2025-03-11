@@ -92,8 +92,8 @@ All the policies are trained with 4 robots.
 ### Robotarium
 |                     4 robots (perfect comms)                      |                    8 robots (imperfect comms)                   |                    12 robots (imperfect comms)                     |                      16 robots (imperfect comms)                        |
 |:-------------------------------------------------:|:-----------------------------------------------:|:-----------------------------------------------:|:----------------------------------------------------:|
-| <img src="figs/navigation_4_fast.gif" height="190"> | <img src="figs/navigation_8_fast.gif" height="190"> | <img src="figs/navigation_12_fast.gif" height="190"> | <img src="figs/navigation_16_fast.gif" height="190"> | 
-| <img src="figs/4_2_fast.gif" height="190"> | <img src="figs/8_3_fast.gif" height="190"> | <img src="figs/12_4_fast.gif" height="190"> | <img src="figs/16_5_fast.gif" height="190"> | 
+| <img src="figs/navigation_4_fast.gif" height="130"> | <img src="figs/navigation_8_fast.gif" height="130"> | <img src="figs/navigation_12_fast.gif" height="130"> | <img src="figs/navigation_16_fast.gif" height="130"> | 
+| <img src="figs/4_2_fast.gif" height="130"> | <img src="figs/8_3_fast.gif" height="130"> | <img src="figs/12_4_fast.gif" height="130"> | <img src="figs/16_5_fast.gif" height="130"> | 
 
 ## Code
 The code is based on ```gym``` and makes use of some of the scenarios from [VMAS: Vectorized Multi-Agent Simulator](https://github.com/proroklab/VectorizedMultiAgentSimulator/tree/main). 
