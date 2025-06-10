@@ -118,14 +118,14 @@ constructor parameter ````ph_MARL```` to ````True````.
 ## Citation
 If you find our papers/code useful for your research, please cite our work as follows.
 
-E. Sebastian, T. Duong, N. Atanasov, E. Montijano, C. Sagues. [Physics-Informed Multi-Agent Reinforcement Learning for Distributed Multi-Robot Problems](https://eduardosebastianrodriguez.github.io/phMARL/). Under review at IEEE T-RO, 2025
+E. Sebastian, T. Duong, N. Atanasov, E. Montijano, C. Sagues. [Physics-Informed Multi-Agent Reinforcement Learning for Distributed Multi-Robot Problems](https://eduardosebastianrodriguez.github.io/phMARL/). IEEE Transactions on Robotics, 2025
 
  ```bibtex
 @article{sebastian24phMARL,
 author = {Eduardo Sebasti\'{a}n AND Thai Duong AND Nikolay Atanasov AND Eduardo Montijano AND Carlos Sag\"{u}\'{e}s},
 title = {{Physics-Informed Multi-Agent Reinforcement Learning for Distributed Multi-Robot Problems}},
-journal = {arXiv preprint arXiv:2401.00212},
-pages={1--14},
+journal = {IEEE Transactions on Robotics},
+pages={1--19},
 year = {2025}
 }
 ```
